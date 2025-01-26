@@ -1,0 +1,49 @@
+
+
+<nav>
+    <div class="flex justify-between  py-7 text-lg font-bold text-white">
+        <div>
+            {% load static %}
+            <img src="{% static 'images/logo.jpg' %}" alt="logo"  class="h-12 w-12 rounded-full mx-4"/>
+        </div>
+        <div class="mx-4">
+            <ul class="list-inside list-none flex justify-around">
+                <li class="mx-2">
+                    <a href="{% url "home" %}" class=" border-l-4   px-2 border-l-emerald-500">Home</a>
+                </li>
+                <li  class="mx-2">
+                    <a href="#" class=" border-l-4  px-2 border-l-emerald-500">Contact</a>
+                </li>
+                <li  class="mx-2" class=" border-l-4  border-l-emerald-500">
+                    <a href="{% url "dashboard" %}" class=" border-l-4   px-2 border-l-emerald-500">Dashboard</a>
+                </li>
+                <li  class="mx-2" class=" border-l-4  border-l-emerald-500">
+                    <a href="{% url "add_event" %}"  class=" border-l-4 px-2 border-l-emerald-500"> Add Event</a>
+                </li>
+               
+                <li  class="mx-2">
+                    <a href="{% url "add_participant"  %}" class=" border-l-4  px-2 border-l-emerald-500">Add Participant</a>
+                </li>
+                <li  class="mx-2">
+                    <a href="{% url "create_category" %}" class=" border-l-4  px-2 border-l-emerald-500">Add Category</a>
+                </li>
+
+                <li  class="mx-2">
+                    <p class="text-white text-lg text-center" id="show_more">Show More</p>
+                    <ul class="list-inside list-none flex flex-col justify-around"  id="show_more_links">
+                        <li>
+                            <a href="{% url "event_list" %}" class=" border-l-4  border-l-emerald-500  px-2">Events</a>
+                        </li>
+                        <li>
+                            <a href="{% url "participant_list" %}" class=" border-l-4  border-l-emerald-500  px-2">Participant</a>
+                        </li>
+                        <li>
+                            <a href="{% url "category_list" %}" class=" border-l-4  border-l-emerald-500  px-2">Category</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
