@@ -1,6 +1,6 @@
 from django.urls import path
-from events.views import optimized_event_list, add_event_form,create_participant_view,create_category,organizer_dashboard,participant_delete
-from events.views import create_category,category_list,category_update,category_delete,event_list,event_create,event_update,event_delete,participant_list,participant_create,participant_update
+from events.views import add_event_form,create_participant_view,create_category,organizer_dashboard,participant_delete
+from events.views import create_category,category_list,category_update,category_delete,event_list,event_update,event_delete,participant_list,participant_update
 
 urlpatterns =[
     path("add_event/", add_event_form, name='add_event') ,
@@ -9,13 +9,13 @@ urlpatterns =[
     path("dashboard/", organizer_dashboard, name='dashboard'),
     # Event URLs
     path('events/', event_list, name='event_list'),
-    path('events/add/',event_create, name='event_create'),
+    path('events/add/',add_event_form, name='event_create'),
     path('events/edit/<int:pk>/',event_update, name='event_update'),
     path('events/delete/<int:pk>/',event_delete, name='event_delete'),
 
     # Participant URLs
     path('participants/',participant_list, name='participant_list'),
-    path('participants/add/',participant_create, name='participant_create'),
+    path('participants/add/',create_participant_view, name='participant_create'),
     path('participants/edit/<int:pk>/',participant_update, name='participant_update'),
     path('participants/delete/<int:pk>/',participant_delete, name='participant_delete'),
 

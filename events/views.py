@@ -132,7 +132,7 @@ def event_update(request, pk):
             return redirect('event_list')
     else:
         form = Add_Event(instance=event)
-    return render(request, 'add_event.html', {'form': form})
+    return render(request, 'update_event.html', {'form': form})
 
 
 def event_delete(request, pk):
@@ -169,7 +169,7 @@ def participant_update(request, pk):
             return redirect('participant_list')
     else:
         form = Create_Participant_Form(instance=participant)
-    return render(request, 'create_participant.html', {'form': form})
+    return render(request, 'update_participant.html', {'form': form})
 
 
 def participant_delete(request, pk):
@@ -206,7 +206,7 @@ def category_update(request, pk):
             return redirect('category_list')
     else:
         form = Add_Category(instance=category)
-    return render(request, 'create_category.html', {'form': form})
+    return render(request, 'update_category.html', {'form': form})
 
 
 def category_delete(request, pk):
@@ -215,4 +215,3 @@ def category_delete(request, pk):
         category.delete()
         return redirect('category_list')
     return render(request, 'category_confirm_delete.html', {'category': category})
-
