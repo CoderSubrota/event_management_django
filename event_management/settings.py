@@ -126,6 +126,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://event-management-qcfb.onrender.com",
+]
+
+
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
