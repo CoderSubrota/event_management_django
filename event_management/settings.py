@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import dj_database_url
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_r0ib69s^06^0+gf4=m%d!^^!(!+_zp=0&qi(258+nm-)_f!tc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://event-management-qcfb.onrender.com/']
+ALLOWED_HOSTS = ['127.0.0.1','event-management-qcfb.onrender.com']
 
 
 # Application definition
