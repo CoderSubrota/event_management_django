@@ -1,16 +1,14 @@
 from django.shortcuts import render,get_object_or_404, redirect
-from events.add_event import Add_Event  #form class
-from events.create_participant import Create_Participant_Form
-from events.add_category import Add_Category
-from django.db.models import Count
-from .models import Add_Event_Model, Create_Participant_Model
+from events.forms import Add_Event,Create_Participant_Form,Add_Category
+from django.db.models import Count,Q
 from django.utils.timezone import now
 from .models import Add_Event_Model, Create_Participant_Model, Category_Model
 # Create your views here.
 def add_event_form(request):
-     show_form = Add_Event()
-     if request.method == "POST":
+    show_form = Add_Event()
+    if request.method == "POST":
         form = Add_Event(request.POST)
+        print(form)
         if form.is_valid():
             print("Event", form.cleaned_data)
             form.save()
@@ -19,7 +17,7 @@ def add_event_form(request):
                 "message": "Event added successfully!"
             })
 
-     return render(request, "add_event.html", {"form": show_form})
+    return render(request, "add_event.html", {"form": show_form})
 
  
 def  create_participant_view(request):
@@ -32,7 +30,7 @@ def  create_participant_view(request):
 
         context = {
             'form':form_view ,
-            'message':'Participant added successfully !!'
+            'message':'Participant added successfully !!',
         }
         return render(request, 'create_participant.html', context)
 
@@ -55,27 +53,40 @@ def create_category(request):
 
      return render(request, 'create_category.html', {'form':form_view})
  
-
-
+# filter events data 
 def optimized_event_list(request):
     # Fetch events with their categories and participants
-    events = Add_Event_Model.objects.select_related('category').prefetch_related('create_participant_model_set')
+    events = Add_Event_Model.objects.select_related('category').prefetch_related('events')
 
-    # Aggregate query to count the total number of participants
-    total_participants = events.aggregate(total=Count('create_participant_model_set'))['total']
     # Apply filtering based on category and date range
     category = request.GET.get('category')
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
 
     if category:
-        events = events.filter(category__name=category)
+        events = events.filter(category__name=category)  
     if start_date and end_date:
-        events = events.filter(date__range=[start_date, end_date])
+        events = events.filter(date__range=[start_date, end_date]) 
+
+    # Aggregate query to count the total number of participants across all events
+    total_participants = events.annotate(participant_count=Count('events')).aggregate(
+        total=Count('events')
+    )['total']
+    
+    categories = Category_Model.objects.all()
+    
+    query = request.GET.get('search', '')  
+    search_events = Add_Event_Model.objects.all()
+
+    if query:
+        search_events = search_events.filter(Q(name__icontains=query) | Q(location__icontains=query))
+
 
     return render(request, 'home.html', {
         'events': events,
-        'total_participants': total_participants,
+        'search_events':search_events,
+        'total_participants': total_participants if total_participants else 0,
+        'categories':categories,
     })
 
 def organizer_dashboard(request):

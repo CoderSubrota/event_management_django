@@ -1,48 +1,51 @@
-
-
-<nav>
-    <div class="flex justify-between  py-7 text-lg font-bold text-white">
-        <div>
+<nav class="bg-gray-800 text-white">
+    <div class="container mx-auto flex flex-col lg:flex-row lg:justify-between items-center py-5 px-4">
+        <!-- Logo Section -->
+        <div class="flex items-center">
             {% load static %}
-            <img src="{% static 'images/logo.jpg' %}" alt="logo"  class="h-12 w-12 rounded-full mx-4"/>
+            <img src="{% static 'images/logo.jpg' %}" alt="logo" class="h-12 w-12 rounded-full">
+            <span class="ml-3 text-xl font-bold">Event Manager</span>
         </div>
-        <div class="mx-4">
-            <ul class="list-inside list-none flex justify-around">
-                <li class="mx-2">
-                    <a href="{% url "home" %}" class=" border-l-4   px-2 border-l-emerald-500">Home</a>
-                </li>
-                <li  class="mx-2">
-                    <a href="#" class=" border-l-4  px-2 border-l-emerald-500">Contact</a>
-                </li>
-                <li  class="mx-2" class=" border-l-4  border-l-emerald-500">
-                    <a href="{% url "dashboard" %}" class=" border-l-4   px-2 border-l-emerald-500">Dashboard</a>
-                </li>
-                <li  class="mx-2" class=" border-l-4  border-l-emerald-500">
-                    <a href="{% url "add_event" %}"  class=" border-l-4 px-2 border-l-emerald-500"> Add Event</a>
-                </li>
-               
-                <li  class="mx-2">
-                    <a href="{% url "add_participant"  %}" class=" border-l-4  px-2 border-l-emerald-500">Add Participant</a>
-                </li>
-                <li  class="mx-2">
-                    <a href="{% url "create_category" %}" class=" border-l-4  px-2 border-l-emerald-500">Add Category</a>
-                </li>
 
-                <li  class="mx-2">
-                    <p class="text-white text-lg text-center" id="show_more">Show More</p>
-                    <ul class="list-inside list-none flex flex-col justify-around"  id="show_more_links">
-                        <li>
-                            <a href="{% url "event_list" %}" class=" border-l-4  border-l-emerald-500  px-2">Events</a>
-                        </li>
-                        <li>
-                            <a href="{% url "participant_list" %}" class=" border-l-4  border-l-emerald-500  px-2">Participant</a>
-                        </li>
-                        <li>
-                            <a href="{% url "category_list" %}" class=" border-l-4  border-l-emerald-500  px-2">Category</a>
-                        </li>
-                    </ul>
+        <!-- Navigation Links -->
+        <div class="mt-5 lg:mt-0">
+            <ul class="list-none flex flex-col lg:flex-row gap-4 lg:gap-8">
+                <li>
+                    <a href="{% url 'home' %}" class="hover:text-emerald-500 transition duration-300">Home</a>
                 </li>
-
+                <li>
+                    <a href="#" class="hover:text-emerald-500 transition duration-300">Contact</a>
+                </li>
+                <li>
+                    <a href="{% url 'dashboard' %}" class="hover:text-emerald-500 transition duration-300">Dashboard</a>
+                </li>
+                <li>
+                    <a href="{% url 'add_event' %}" class="hover:text-emerald-500 transition duration-300">Add Event</a>
+                </li>
+                <li>
+                    <a href="{% url 'add_participant' %}" class="hover:text-emerald-500 transition duration-300">Add Participant</a>
+                </li>
+                <li>
+                    <a href="{% url 'create_category' %}" class="hover:text-emerald-500 transition duration-300">Add Category</a>
+                </li>
+                <!-- Dropdown for "Show More" -->
+                <li class="relative group">
+                    <!-- Wrapping both the "Show More" text and dropdown menu -->
+                    <div class="group-hover:block">
+                        <p class="hover:cursor-pointer hover:text-emerald-500 transition duration-300">Show More</p>
+                        <ul class="absolute left-0  hidden group-hover:flex flex-col bg-gray-700 -mt-1 text-white shadow-lg rounded-lg p-3">
+                            <li class="py-1">
+                                <a href="{% url 'event_list' %}" class="block hover:text-emerald-500 transition duration-300">Events</a>
+                            </li>
+                            <li class="py-1">
+                                <a href="{% url 'participant_list' %}" class="block hover:text-emerald-500 transition duration-300">Participants</a>
+                            </li>
+                            <li class="py-1">
+                                <a href="{% url 'category_list' %}" class="block hover:text-emerald-500 transition duration-300">Categories</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

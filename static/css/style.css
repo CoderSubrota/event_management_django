@@ -1,13 +1,9 @@
 body{
     background-color: #06174e;
+    font-family: "Parkinsans", serif;
 }
 
 footer,nav{
     background-color: #054468;
 }
 
-#show_more_links{display: none; background: white;}
-
-#show_more:hover > #show_more_links{
-display: block;
-}
