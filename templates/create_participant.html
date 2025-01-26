@@ -13,7 +13,7 @@
       <h2 class="text-3xl font-black text-green-300 text-center my-4"> {{message}} </h2>
      {% endif %}
 
-     <form  method="post" class="mx-auto my-16 w-6/12 text-green-500 text-2xl font-bold">
+     <form  method="post" action="{% url 'add_participant' %}" class="mx-auto my-16 w-6/12 text-green-500 text-2xl font-bold">
         {% csrf_token %}
         {{form}}
 
