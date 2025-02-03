@@ -1,5 +1,5 @@
 <nav class="bg-gray-800 text-white">
-    <div class="container mx-auto flex flex-col lg:flex-row lg:justify-between items-center py-5 px-4">
+    <div class="flex  sm:flex-col md:flex-col-reverse lg:flex-row lg:justify-between items-center py-5 px-4 container mx-auto">
         <!-- Logo Section -->
         <div class="flex items-center">
             {% load static %}
@@ -9,7 +9,7 @@
 
         <!-- Navigation Links -->
         <div class="mt-5 lg:mt-0">
-            <ul class="list-none flex flex-col lg:flex-row gap-4 lg:gap-8">
+            <ul class="flex sm:flex-col md:flex-col-reverse lg:flex-row list-none  gap-4 lg:gap-8">
                 <li>
                     <a href="{% url 'home' %}" class="hover:text-emerald-500 transition duration-300">Home</a>
                 </li>

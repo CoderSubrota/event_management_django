@@ -16,7 +16,7 @@
         <div class="container my-14 mx-auto grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {% if search_events %}
                 {% for event_item in search_events %}
-                    <div class="bg-gradient-to-r py-12 my-4 from-green-400 to-blue-500 rounded-xl shadow-xl p-5 flex flex-col items-center">
+                    <div class="bg-gradient-to-r py-12 my-4 from-green-400 to-blue-500 rounded-xl shadow-xl p-2 flex flex-col items-center hover:shadow-blue-600 duration-300 ">
                         <h3 class="text-white text-lg font-bold mb-2 text-center">Event: {{ event_item.name }}</h3>
                         <p class="text-white text-sm mb-2"><strong>Location:</strong> {{ event_item.location }}</p>
                         <p class="text-white text-sm"><strong>Date:</strong> {{ event_item.date }}</p>
@@ -35,11 +35,12 @@
 
     {% load static %}
     
-    <div class="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-6  ml-20">
-        <img src="{% static "images/event.jpeg" %}" alt="event"  class="w-96 h-96  rounded-4xl mx-3.5"/>
-    <img src="{% static "images/event2.jpeg" %}" alt="event"  class="w-96 h-96  rounded-4xl mx-3.5"/>
-    <img src="{% static "images/event3.jpeg" %}" alt="event"  class="w-96 h-96  rounded-4xl mx-3.5"/>
-    
+    <div class="flex justify-center">
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <img src="{% static "images/event.jpeg" %}" alt="event"  class="w-96 h-96  rounded-4xl mx-3.5"/>
+            <img src="{% static "images/event2.jpeg" %}" alt="event"  class="w-96 h-96  rounded-4xl mx-3.5"/>
+            <img src="{% static "images/event3.jpeg" %}" alt="event"  class="w-96 h-96  rounded-4xl mx-3.5"/>
+            </div>
     </div>
 
     
@@ -48,7 +49,7 @@
 
         <p class="text-center text-2xl font-bold ">Total Participants: <span class="text-green-400">{{ total_participants }}</span> </p>
 
-        <form method="get" class="my-8 mx-auto lg: ml-45 flex flex-col lg:flex-row">
+        <form method="get" class="flex  sm:flex-col md:flex-col lg:flex-row my-8 mx-auto lg:ml-45 items-center align-middle justify-around">
             <label for="category">Filter by Category:</label>
             <input type="text" id="category" name="category" placeholder="Enter category"  class="ring-2 ring-blue-600 rounded-2xl mx-2 my-4 ps-3">
             
