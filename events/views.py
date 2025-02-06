@@ -3,7 +3,27 @@ from events.forms import Add_Event,Create_Participant_Form,Add_Category
 from django.db.models import Count,Q
 from django.utils.timezone import now
 from .models import Add_Event_Model, Create_Participant_Model, Category_Model
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 # Create your views here.
+
+# ------------------
+def is_organizer(user):
+    return user.groups.filter(name='Organizer').exists()
+
+def is_admin(user):
+    if user.is_authenticated:
+        return user.groups.filter(name='Admin').exists()
+    else:
+        print(f"User {user} is not authenticated")
+        return False
+
+def is_participant(user):
+    return user.groups.filter(name='Participant').exists()
+# ---------------------- 
+
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def add_event_form(request):
     show_form = Add_Event()
     if request.method == "POST":
@@ -19,7 +39,8 @@ def add_event_form(request):
 
     return render(request, "add_event.html", {"form": show_form})
 
- 
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def  create_participant_view(request):
      form_view =  Create_Participant_Form()
      
@@ -36,7 +57,8 @@ def  create_participant_view(request):
 
      return render(request, 'create_participant.html', {'form':form_view})
  
- 
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def create_category(request):
      form_view =  Add_Category()
      
@@ -89,6 +111,8 @@ def optimized_event_list(request):
         'categories':categories,
     })
 
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def organizer_dashboard(request):
     total_participants = Create_Participant_Model.objects.count()
     total_events = Add_Event_Model.objects.count()
@@ -107,11 +131,14 @@ def organizer_dashboard(request):
 
 
 # -------------------- EVENT VIEWS -------------------- #
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def event_list(request):
     events = Add_Event_Model.objects.select_related('category').all()
     return render(request, 'event_list.html', {'events': events})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def event_create(request):
     if request.method == "POST":
         form = Add_Event(request.POST)
@@ -122,7 +149,8 @@ def event_create(request):
         form = Add_Event()
     return render(request, 'event_form.html', {'form': form})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def event_update(request, pk):
     event = get_object_or_404(Add_Event_Model, pk=pk)
     if request.method == "POST":
@@ -134,7 +162,8 @@ def event_update(request, pk):
         form = Add_Event(instance=event)
     return render(request, 'update_event.html', {'form': form})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def event_delete(request, pk):
     event = get_object_or_404(Add_Event_Model, pk=pk)
     if request.method == "POST":
@@ -144,11 +173,14 @@ def event_delete(request, pk):
 
 
 # -------------------- PARTICIPANT VIEWS -------------------- #
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def participant_list(request):
     participants = Create_Participant_Model.objects.prefetch_related('event_assign').all()
     return render(request, 'participant_list.html', {'participants': participants})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def participant_create(request):
     if request.method == "POST":
         form = Create_Participant_Form(request.POST)
@@ -159,7 +191,8 @@ def participant_create(request):
         form = Create_Participant_Form()
     return render(request, 'create_participant.html', {'form': form})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def participant_update(request, pk):
     participant = get_object_or_404(Create_Participant_Model, pk=pk)
     if request.method == "POST":
@@ -171,7 +204,8 @@ def participant_update(request, pk):
         form = Create_Participant_Form(instance=participant)
     return render(request, 'update_participant.html', {'form': form})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def participant_delete(request, pk):
     participant = get_object_or_404(Create_Participant_Model, pk=pk)
     if request.method == "POST":
@@ -181,11 +215,14 @@ def participant_delete(request, pk):
 
 
 # -------------------- CATEGORY VIEWS -------------------- #
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def category_list(request):
     categories = Category_Model.objects.all()
     return render(request, 'category_list.html', {'categories': categories})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def category_create(request):
     if request.method == "POST":
         form = Add_Category(request.POST)
@@ -196,7 +233,8 @@ def category_create(request):
         form = Add_Category()
     return render(request, 'create_category.html', {'form': form})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def category_update(request, pk):
     category = get_object_or_404(Category_Model, pk=pk)
     if request.method == "POST":
@@ -208,7 +246,8 @@ def category_update(request, pk):
         form = Add_Category(instance=category)
     return render(request, 'update_category.html', {'form': form})
 
-
+@login_required
+@user_passes_test(is_organizer or is_admin,login_url="sign-in")
 def category_delete(request, pk):
     category = get_object_or_404(Category_Model, pk=pk)
     if request.method == "POST":

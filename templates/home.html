@@ -6,7 +6,13 @@
 </head>
 <body>
     {% include "share/navbar.html" %}
-   
+ 
+    <div class="text-center text-green-300 mt-5 text-2xl">
+        {% if user.is_authenticated %}
+        <p>Welcome {{user.first_name}}</p>
+        {% endif %}
+    </div>
+    {% comment %} Subta1234##  {% endcomment %}
     <div class="  text-white font-bold my-3">
         <form method="get" class="ml-22 lg:ml-96 my-12" action="{% url 'home' %}">
             <input type="text" name="search" placeholder="Search events by name or location" value="{{ query }}" class="ring-2 ring-blue-700 border px-2 py-1 w-2xl ps-2.5 rounded-2xl">

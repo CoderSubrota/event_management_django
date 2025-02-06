@@ -17,7 +17,10 @@ Including another URLconf
 from events.views import optimized_event_list
 from django.urls import path,include
 from debug_toolbar.toolbar import debug_toolbar_urls
+from django.contrib import admin
 urlpatterns = [
     path('', optimized_event_list , name='home'),
-    path('events/', include('events.urls'))
+    path('admin/',admin.site.urls),
+    path('events/', include('events.urls')),
+    path('users/',include('users.urls')),
 ]+ debug_toolbar_urls()
